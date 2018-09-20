@@ -1,0 +1,246 @@
+Atención de pedidos
+
+Envía:
+{
+  "type": "check-inventory",
+  "order-id": 1,
+  "product": "Producto 1"
+}
+{
+  "type": "check-promotions",
+  "order-id": 1,
+  "customer": "Pablo Barreno"
+}
+{
+  "type": "generate-receipt",
+  "order-id": 1,
+  "customer": "Pablo Barreno",
+  "nit": "12345-6",
+  "products": [
+    {
+      "product": "Producto 1",
+      "quantity": 2
+    },
+    {
+      "product": "Producto 2",
+      "quantity": 1
+    }
+  ]
+}
+{
+  "type": "web-create-order-ok",
+  "order-id": 1
+}
+{
+  "type": "web-create-order-error",
+  "order-id": 1,
+  "message": "No hay inventario de Producto 1"
+}
+{
+  "type": "web-order-status",
+  "order-id": 1,
+  "status": "Preparando"
+}
+
+
+Recibe:
+{
+  "type": "inventory-info",
+  "order-id": 1,
+  "product": "Producto 1",
+  "available": True
+}
+{
+  "type": "promotions-info",
+  "order-id": 1,
+  "customer": "Pablo Barreno",
+  "promotion-type": "100%"
+}
+{
+  "type": "receipt",
+  "order-id": 1,
+  "number": 1,
+  "customer": "Pablo Barreno",
+  "nit": "12345-6",
+  "products": [
+    {
+      "product": "Producto 1",
+      "quantity": 2,
+      "total": 100
+    },
+    {
+      "product": "Producto 2",
+      "quantity": 1,
+      "total": 42
+    }
+  ],
+  "total": 142
+}
+{
+  "type": "web-create-order",
+  "customer": "Pablo Barreno",
+  "nit": "12345-6",
+  "products": [
+    {
+      "product": "Producto 1",
+      "quantity": 2
+    },
+    {
+      "product": "Producto 2",
+      "quantity": 1
+    }
+  ]
+}
+{
+  "type": "web-check-order-status",
+  "order-id": 1
+}
+
+
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+
+
+Recepción de pedidos a domicilio y eventos
+
+Envía:
+{
+  "type": "web-create-order",
+  "customer": "Pablo Barreno",
+  "nit": "12345-6",
+  "products": [
+    {
+      "product": "Producto 1",
+      "quantity": 2
+    },
+    {
+      "product": "Producto 2",
+      "quantity": 1
+    }
+  ]
+}
+{
+  "type": "web-check-order-status",
+  "order-id": 1
+}
+
+Recibe:
+{
+  "type": "web-create-order-ok",
+  "order-id": 1
+}
+{
+  "type": "web-create-order-error",
+  "order-id": 1,
+  "message": "No hay inventario de Producto 1"
+}
+{
+  "type": "web-order-status",
+  "order-id": 1,
+  "status": "Preparando"
+}
+
+
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+
+
+ERP
+
+Envía:
+{
+  "type": "inventory-info",
+  "order-id": 1,
+  "product": "Producto 1",
+  "available": True
+}
+{
+  "type": "receipt",
+  "order-id": 1,
+  "number": 1,
+  "customer": "Pablo Barreno",
+  "nit": "12345-6",
+  "products": [
+    {
+      "product": "Producto 1",
+      "quantity": 2,
+      "total": 100
+    },
+    {
+      "product": "Producto 2",
+      "quantity": 1,
+      "total": 42
+    }
+  ],
+  "total": 142
+}
+{
+  "type": "customer-activity",
+  "order-id": 1,
+  "customer": "Pablo Barreno",
+  "money-spent": 450
+}
+
+Recibe:
+{
+  "type": "check-inventory",
+  "order-id": 1,
+  "product": "Producto 1"
+}
+{
+  "type": "generate-receipt",
+  "order-id": 1,
+  "customer": "Pablo Barreno",
+  "nit": "12345-6",
+  "products": [
+    {
+      "product": "Producto 1",
+      "quantity": 2
+    },
+    {
+      "product": "Producto 2",
+      "quantity": 1
+    }
+  ]
+}
+{
+  "type": "check-customer-activity",
+  "order-id": 1,
+  "customer": "Pablo Barreno"
+}
+
+
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+
+
+Clientes y Ventas
+
+Envía:
+{
+  "type": "promotions-info",
+  "order-id": 1,
+  "customer": "Pablo Barreno",
+  "promotion-type": "100%"
+}
+{
+  "type": "check-customer-activity",
+  "order-id": 1,
+  "customer": "Pablo Barreno"
+}
+
+Recibe:
+{
+  "type": "check-promotions",
+  "order-id": 1,
+  "customer": "Pablo Barreno"
+}
+{
+  "type": "customer-activity",
+  "order-id": 1,
+  "customer": "Pablo Barreno",
+  "money-spent": 450
+}
