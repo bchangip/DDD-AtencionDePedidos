@@ -3,7 +3,6 @@ import pika
 import multiprocessing
 import json
 import time
-from pebble import concurrent, ProcessExpired
 from concurrent.futures import TimeoutError
 
 def callback(ch, method, properties, body):

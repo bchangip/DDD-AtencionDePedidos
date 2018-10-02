@@ -1,0 +1,13 @@
+version: "3"
+services:
+  atencion:
+    build: .
+    depends_on:
+      - "rabbitmq"
+      - "mongodb"
+  rabbitmq:
+    image: "rabbitmq" 
+    ports:
+      - "5672:5672"
+  mongodb:
+    image: "mongo"

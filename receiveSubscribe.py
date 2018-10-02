@@ -7,7 +7,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 def sendMessages(messages):
-  connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+  connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq'))
   channel = connection.channel()
 
   channel.exchange_declare(exchange='events',
@@ -23,7 +23,7 @@ def sendMessages(messages):
 def inventoryInfoHandler(body):
   print("Handling inventory-info request")
   print(" [x] %r on process %r" % (body, multiprocessing.current_process()))
-  orders = MongoClient().orders.orders
+  orders = MongoClient(host="mongodb").orders.orders
   orderObject = orders.find_one({"_id": ObjectId(body['order-id'])})
   print('products', orderObject['products'])
   for product in filter(lambda x: x["product"] == body['product'], orderObject['products']):
@@ -50,7 +50,7 @@ def webCreateOrderHandler(body):
   print("Handling web-create-order request")
   print(" [x] %r on process %r" % (body, multiprocessing.current_process()))
   print("Going to sleep 2 seconds.")
-  orders = MongoClient().orders.orders
+  orders = MongoClient(host="mongodb").orders.orders
   insertionOrder = {
     "customer": body['customer'],
     "nit": body['nit'],
@@ -87,7 +87,7 @@ def webCreateOrderHandler(body):
 def webCheckOrderStatusHandler(body):
   print("Handling web-check-order-status request")
   print(" [x] %r on process %r" % (body, multiprocessing.current_process()))
-  orders = MongoClient().orders.orders
+  orders = MongoClient(host="mongodb").orders.orders
   orderObject = orders.find_one({"_id": ObjectId(body['order-id'])})
   if(orderObject != None):
     sendMessages([{
@@ -122,7 +122,7 @@ def main():
   workers = 10
   pool = multiprocessing.Pool(processes=workers)
 
-  connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+  connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq'))
   channel = connection.channel()
 
   channel.exchange_declare(exchange='events',
