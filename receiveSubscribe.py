@@ -119,7 +119,7 @@ def asyncCallback(ch, method, properties, body):
 def main():
   global pool
 
-  workers = 1
+  workers = 10
   pool = multiprocessing.Pool(processes=workers)
 
   connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))

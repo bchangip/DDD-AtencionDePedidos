@@ -27,12 +27,12 @@ message = {
 
 # message = {
 #   "type": "web-check-order-status",
-#   "order-id": "5ba3249a80e841381069ccf8"
+#   "order-id": "5ba42fca80e841090cf562aa"
 # }
 
 # message = {
 #   "type": "inventory-info",
-#   "order-id": "5ba3343380e8412be0bdb228",
+#   "order-id": "5ba42fca80e841090cf562aa",
 #   "product": "Producto 1",
 #   "available": True
 # }
