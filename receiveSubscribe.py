@@ -46,7 +46,7 @@ def receiptHandler(body):
   time.sleep(2)
   print("receipt processed")
 
-def webCreateOrderHandler(body):
+def webCreateOrderHandler(body, testMode=False):
   print("Handling web-create-order request")
   print(" [x] %r on process %r" % (body, multiprocessing.current_process()))
   print("Going to sleep 2 seconds.")
@@ -82,7 +82,10 @@ def webCreateOrderHandler(body):
     "nit": body['nit'],
     "products": body['products']
   })
-  sendMessages(messages)
+  if testMode:
+    return (insertedId, messages)
+  else:
+    sendMessages(messages)
 
 def webCheckOrderStatusHandler(body):
   print("Handling web-check-order-status request")
